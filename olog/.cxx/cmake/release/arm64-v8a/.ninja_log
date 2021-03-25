@@ -1,0 +1,5 @@
+# ninja log v5
+0	113	1616590811	CMakeFiles/olog.dir/src/main/cpp/common.cpp.o	d69a0276850e8524
+0	301	1616590811	CMakeFiles/olog.dir/src/main/cpp/entry.cpp.o	2472dba5c2442c38
+1	897	1616590811	CMakeFiles/olog.dir/src/main/cpp/log.cpp.o	f3c92bcb5a72cddf
+897	1035	1616590812	../../../../build/intermediates/cmake/release/obj/arm64-v8a/libolog.so	bf49b07812aa1864

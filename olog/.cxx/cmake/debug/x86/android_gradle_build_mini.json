@@ -1,0 +1,21 @@
+{
+  "buildFiles": [
+    "/Users/lx/Library/Android/sdk/ndk/r16b/build/cmake/android.toolchain.cmake",
+    "/Users/lx/Code/pjqian/olog/olog/CMakeLists.txt"
+  ],
+  "cleanCommands": [
+    "/Users/lx/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/lx/Code/pjqian/olog/olog/.cxx/cmake/debug/x86\" clean"
+  ],
+  "buildTargetsCommand": "/Users/lx/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja  -C \"/Users/lx/Code/pjqian/olog/olog/.cxx/cmake/debug/x86\" {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "olog-Debug-x86": {
+      "artifactName": "olog",
+      "buildCommand": "/Users/lx/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/lx/Code/pjqian/olog/olog/.cxx/cmake/debug/x86\" olog",
+      "abi": "x86",
+      "output": "/Users/lx/Code/pjqian/olog/olog/build/intermediates/cmake/debug/obj/x86/libolog.so",
+      "runtimeFiles": [
+        "/Users/lx/Library/Android/sdk/ndk/r16b/sources/cxx-stl/gnu-libstdc++/4.9/libs/x86/libgnustl_static.a"
+      ]
+    }
+  }
+}

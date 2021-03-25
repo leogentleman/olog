@@ -1,0 +1,19 @@
+[
+{
+  "directory": "/Users/lx/Code/pjqian/olog/olog/.cxx/cmake/release/x86_64",
+  "command": "/Users/lx/Library/Android/sdk/ndk/r16b/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=x86_64-none-linux-android --gcc-toolchain=/Users/lx/Library/Android/sdk/ndk/r16b/toolchains/x86_64-4.9/prebuilt/darwin-x86_64 --sysroot=/Users/lx/Library/Android/sdk/ndk/r16b/sysroot  -Dolog_EXPORTS -isystem /Users/lx/Library/Android/sdk/ndk/r16b/sources/cxx-stl/gnu-libstdc++/4.9/include -isystem /Users/lx/Library/Android/sdk/ndk/r16b/sources/cxx-stl/gnu-libstdc++/4.9/libs/x86_64/include -isystem /Users/lx/Library/Android/sdk/ndk/r16b/sources/cxx-stl/gnu-libstdc++/4.9/include/backward  -isystem /Users/lx/Library/Android/sdk/ndk/r16b/sysroot/usr/include/x86_64-linux-android -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++14 -O2 -DNDEBUG  -fPIC   -o CMakeFiles/olog.dir/src/main/cpp/common.cpp.o -c /Users/lx/Code/pjqian/olog/olog/src/main/cpp/common.cpp",
+  "file": "/Users/lx/Code/pjqian/olog/olog/src/main/cpp/common.cpp"
+},
+
+{
+  "directory": "/Users/lx/Code/pjqian/olog/olog/.cxx/cmake/release/x86_64",
+  "command": "/Users/lx/Library/Android/sdk/ndk/r16b/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=x86_64-none-linux-android --gcc-toolchain=/Users/lx/Library/Android/sdk/ndk/r16b/toolchains/x86_64-4.9/prebuilt/darwin-x86_64 --sysroot=/Users/lx/Library/Android/sdk/ndk/r16b/sysroot  -Dolog_EXPORTS -isystem /Users/lx/Library/Android/sdk/ndk/r16b/sources/cxx-stl/gnu-libstdc++/4.9/include -isystem /Users/lx/Library/Android/sdk/ndk/r16b/sources/cxx-stl/gnu-libstdc++/4.9/libs/x86_64/include -isystem /Users/lx/Library/Android/sdk/ndk/r16b/sources/cxx-stl/gnu-libstdc++/4.9/include/backward  -isystem /Users/lx/Library/Android/sdk/ndk/r16b/sysroot/usr/include/x86_64-linux-android -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++14 -O2 -DNDEBUG  -fPIC   -o CMakeFiles/olog.dir/src/main/cpp/entry.cpp.o -c /Users/lx/Code/pjqian/olog/olog/src/main/cpp/entry.cpp",
+  "file": "/Users/lx/Code/pjqian/olog/olog/src/main/cpp/entry.cpp"
+},
+
+{
+  "directory": "/Users/lx/Code/pjqian/olog/olog/.cxx/cmake/release/x86_64",
+  "command": "/Users/lx/Library/Android/sdk/ndk/r16b/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=x86_64-none-linux-android --gcc-toolchain=/Users/lx/Library/Android/sdk/ndk/r16b/toolchains/x86_64-4.9/prebuilt/darwin-x86_64 --sysroot=/Users/lx/Library/Android/sdk/ndk/r16b/sysroot  -Dolog_EXPORTS -isystem /Users/lx/Library/Android/sdk/ndk/r16b/sources/cxx-stl/gnu-libstdc++/4.9/include -isystem /Users/lx/Library/Android/sdk/ndk/r16b/sources/cxx-stl/gnu-libstdc++/4.9/libs/x86_64/include -isystem /Users/lx/Library/Android/sdk/ndk/r16b/sources/cxx-stl/gnu-libstdc++/4.9/include/backward  -isystem /Users/lx/Library/Android/sdk/ndk/r16b/sysroot/usr/include/x86_64-linux-android -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -std=c++14 -O2 -DNDEBUG  -fPIC   -o CMakeFiles/olog.dir/src/main/cpp/log.cpp.o -c /Users/lx/Code/pjqian/olog/olog/src/main/cpp/log.cpp",
+  "file": "/Users/lx/Code/pjqian/olog/olog/src/main/cpp/log.cpp"
+}
+]
