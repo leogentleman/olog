@@ -1,5 +1,0 @@
-# ninja log v5
-0	111	1616590812	CMakeFiles/olog.dir/src/main/cpp/common.cpp.o	cc250d7d7d50b013
-1	276	1616590812	CMakeFiles/olog.dir/src/main/cpp/entry.cpp.o	1feec5efe6acc301
-1	1230	1616590813	CMakeFiles/olog.dir/src/main/cpp/log.cpp.o	5ee07ae1af6d606a
-1231	1303	1616590813	../../../../build/intermediates/cmake/release/obj/x86/libolog.so	21154ff65d8977b5
