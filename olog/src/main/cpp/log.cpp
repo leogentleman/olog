@@ -140,7 +140,7 @@ uint32_t OLog::findLastIndex(char *dir, char* logFilePrefix, char *date) {
         while (epdf = readdir(dpdf)) {
             if (strlen(epdf->d_name) >= strlen(prefix)
                 && memcmp(prefix, epdf->d_name, strlen(prefix)) == 0) {
-                char* path = (char*) malloc(strlen(logFilePrefix) + 1 + strlen(epdf->d_name) + 1);
+                char* path = (char*) malloc(strlen(dir) + 1 + strlen(epdf->d_name) + 1);
                 sprintf(path, "%s/%s", dir, epdf->d_name);
                 struct stat buf;
                 int result = stat(path, &buf);
@@ -339,7 +339,7 @@ void OLog::removeOldLogs() {
             if (strlen(epdf->d_name) >= strlen(logFilePostfix)
                 && strcmp(epdf->d_name + strlen(epdf->d_name)
                 - strlen(logFilePostfix), logFilePostfix) == 0) {
-                char* path = (char*) malloc(strlen(logFilePrefix)
+                char* path = (char*) malloc(strlen(logDir)
                         + 1 + strlen(epdf->d_name) + 1);
                 sprintf(path, "%s/%s", logDir, epdf->d_name);
                 struct stat buf;
