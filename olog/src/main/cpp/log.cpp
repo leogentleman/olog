@@ -111,7 +111,7 @@ void OLog::createAndInit(const char *pcPath) {
 
 void OLog::formatLogFileDate(char *dateStrBuf) {
     time_t currentTime = (time_t) (time(NULL) + CHINA_UTC_OFFSET / 1000);
-    struct tm dateBuf{};
+    struct tm dateBuf;
     struct tm *curDate = gmtime_r(&currentTime, &dateBuf);
 
     sprintf(dateStrBuf, "%04d%02d%02d", 1900 + curDate->tm_year, 1 + curDate->tm_mon,
@@ -119,10 +119,11 @@ void OLog::formatLogFileDate(char *dateStrBuf) {
 }
 
 uint32_t OLog::findLastIndex(char *dir, char* logFilePrefix, char *date) {
-    ALOGI("findLastIndex dir: %s, logFilePrefix %s date %s ", dir, logFilePrefix, date);
-    if (logFilePrefix == NULL || date == NULL) {
+    if (dir == NULL || logFilePrefix == NULL || date == NULL) {
         return -1;
     }
+
+    ALOGI("findLastIndex dir: %s, logFilePrefix %s date %s ", dir, logFilePrefix, date);
 
     if (access(dir, R_OK) == -1) {
         return -1;
@@ -132,15 +133,18 @@ uint32_t OLog::findLastIndex(char *dir, char* logFilePrefix, char *date) {
     struct dirent *epdf;
     std::vector<LOG_FILE> logFiles;
     dpdf = opendir(dir);
-    uint32_t len = strlen(logFilePrefix) + 1 + strlen(date) + 1;
-    char* prefix = (char *)malloc(len);
-    snprintf(prefix, len, "%s_%s", logFilePrefix, date);
-    ALOGI("findLastIndex prefix: %s", prefix);
     if (dpdf != NULL) {
+        uint32_t len = strlen(logFilePrefix) + 1 + strlen(date) + 1;
+        char* prefix = (char *)malloc(len);
+        snprintf(prefix, len, "%s_%s", logFilePrefix, date);
+        ALOGI("findLastIndex prefix: %s", prefix);
+        uint32_t prefixLen = strlen(prefix);
+        uint32_t dirLen = strlen(dir);
         while (epdf = readdir(dpdf)) {
-            if (strlen(epdf->d_name) >= strlen(prefix)
-                && memcmp(prefix, epdf->d_name, strlen(prefix)) == 0) {
-                char* path = (char*) malloc(strlen(dir) + 1 + strlen(epdf->d_name) + 1);
+            uint32_t nameLen = strlen(epdf->d_name);
+            if (nameLen >= prefixLen
+                && memcmp(prefix, epdf->d_name, prefixLen) == 0) {
+                char* path = (char*) malloc(dirLen + 1 + nameLen + 1);
                 sprintf(path, "%s/%s", dir, epdf->d_name);
                 struct stat buf;
                 int result = stat(path, &buf);
@@ -153,18 +157,21 @@ uint32_t OLog::findLastIndex(char *dir, char* logFilePrefix, char *date) {
                 }
             }
         }
+        if (logFiles.size() > 0) {
+            sortLogFileByDateNearly(logFiles);
+            LOG_FILE newestFile = logFiles.at(0);
+            std::string fileName = newestFile.fileName;
+            std::string index = fileName.substr(prefixLen + 1, 3);
+            uint32_t result = atoi(index.c_str());
+            ALOGI("findLastIndex result is %d", result);
+            free(prefix);
+            closedir(dpdf);
+            return result;
+        } else {
+            free(prefix);
+            closedir(dpdf);
+        }
     }
-    if (logFiles.size() > 0) {
-        sortLogFileByDateNearly(logFiles);
-        LOG_FILE newestFile = logFiles.at(0);
-        std::string fileName = newestFile.fileName;
-        std::string index = fileName.substr(strlen(prefix) + 1, 3);
-        uint32_t result = atoi(index.c_str());
-        ALOGI("findLastIndex result is %d", result);
-        return result;
-    }
-    free(prefix);
-    closedir(dpdf);
     return -1;
 }
 
@@ -180,10 +187,6 @@ void OLog::logInit_noLock() {
     char *dateBuf = (char *) malloc(8 + 1);
     formatLogFileDate(dateBuf);
 
-    size_t filePathLen = strlen(logDir) + 1 + strlen(logFilePrefix) + 1 + strlen(dateBuf) +
-                         strlen(logFilePostfix) + 4; //最后加上 _XXX，其中XXX表示当天的第几份日志
-    char *filePath = (char *) malloc(filePathLen + 1);
-
     if (logIndex == -1) {
         logIndex = findLastIndex(logDir, logFilePrefix, dateBuf);
         if (logIndex == -1) {
@@ -191,7 +194,12 @@ void OLog::logInit_noLock() {
         }
     }
 
-    sprintf(filePath, "%s/%s_%s_%03d%s", logDir, logFilePrefix, dateBuf, logIndex, logFilePostfix);
+    size_t filePathLen = strlen(logDir) + 1 + strlen(logFilePrefix) + 1 + strlen(dateBuf) +
+                         strlen(logFilePostfix) + 4; //最后加上 _XXX，其中XXX表示当天的第几份日志
+    char *filePath = (char *) malloc(filePathLen + 1);
+
+    sprintf(filePath, "%s/%s_%s_%03d%s", logDir, logFilePrefix, dateBuf, logIndex,
+            logFilePostfix);
     if (initFromExistFile(filePath) == -1) {
         sprintf(filePath, "%s/%s_%s_%03d%s", logDir, logFilePrefix, dateBuf, logIndex,
                 logFilePostfix);
@@ -329,18 +337,23 @@ void OLog::flush() {
 
 //现有的日志文件大小加起来超过20M时，删掉最老的一个文件
 void OLog::removeOldLogs() {
+    if (logDir == NULL) {
+        return;
+    }
     DIR *dpdf;
     struct dirent *epdf;
     std::vector<LOG_FILE> logFiles;
     dpdf = opendir(logDir);
     uint64_t totalFilesSize = 0;
-    if (dpdf != NULL) {
+    if (dpdf != NULL && logFilePostfix != NULL) {
+        uint32_t logFilePostfixLen = strlen(logFilePostfix);
         while (epdf = readdir(dpdf)) {
-            if (strlen(epdf->d_name) >= strlen(logFilePostfix)
-                && strcmp(epdf->d_name + strlen(epdf->d_name)
-                - strlen(logFilePostfix), logFilePostfix) == 0) {
+            uint32_t nameLen = strlen(epdf->d_name);
+            if (nameLen >= strlen(logFilePostfix)
+                && strcmp(epdf->d_name + nameLen
+                - logFilePostfixLen, logFilePostfix) == 0) {
                 char* path = (char*) malloc(strlen(logDir)
-                        + 1 + strlen(epdf->d_name) + 1);
+                        + 1 + nameLen + 1);
                 sprintf(path, "%s/%s", logDir, epdf->d_name);
                 struct stat buf;
                 int result = stat(path, &buf);
@@ -365,7 +378,9 @@ void OLog::removeOldLogs() {
         remove(path.c_str());
         logFiles.pop_back();
     }
-
+    if (dpdf != NULL) {
+        closedir(dpdf);
+    }
 }
 
 void OLog::sortLogFileByDateNearly(std::vector<LOG_FILE> &logFiles) const {

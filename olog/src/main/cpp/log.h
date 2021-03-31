@@ -18,7 +18,7 @@
 #define LOG_BUF_SIZE        1024
 
 #define MAX_SINGLE_LOG_SIZE (1024*1024) //单个日志文件大小限制为1M
-#define MAX_ALL_LOGS_SIZE (50*1024*1024) //所有日志加起来文件大小限制为20M
+#define MAX_ALL_LOGS_SIZE (50*1024*1024) //所有日志加起来文件大小限制为50M
 
 // 这些常量和Log.java里的对应，不能变动
 static const int LEVEL_VERBOSE = 0;
